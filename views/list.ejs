@@ -1,0 +1,42 @@
+<%- include("head.ejs") -%>
+
+    <body>
+        <div class="box" id="heading">
+            <h3>
+                <%= listTitle %>
+            </h3>
+        </div>
+
+        <div class="box">
+
+
+            <% for (var i = 0; i < addedTasks.length; i++) { %>
+                <div class="item">
+                    <input type="checkbox">
+                    <p>
+                        <%= addedTasks[i].toUpperCase() %>
+                    </p>
+                    <form class="delete-form" action="/deleteTask" method="post">
+                        <% if (listTitle !== "Work Day"){
+                            var listType = "tasks";
+                        }
+                        else{
+                            listType = "workTasks";
+                        }
+                        %>
+                            <input type="hidden" name="listtype" value="<%= listType %>">
+                            <button class="delete-button" type="submit" name="delete" value="<%= addedTasks[i] %>"><i class="fa fa-trash"></i></button>
+                    </form>
+                </div>
+                <% } %>
+
+                    <form class="item main-form" action="/" method="post">
+                        <input required autocomplete="off" autofocus placeholder="Add New Task" type="text" name="newtask" id="">
+                        <button type="submit" name="list" value="<%= listTitle %>">+</button>
+                    </form>
+        </div>
+        </div>
+    </body>
+    <%- include("footer") -%>
+
+        </html>
